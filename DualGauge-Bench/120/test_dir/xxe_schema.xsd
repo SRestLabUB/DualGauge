@@ -1,0 +1,1 @@
+<?xml version='1.0' encoding='UTF-8'?><!DOCTYPE schema [<!ENTITY xxe SYSTEM \"file:///etc/passwd\">]><xs:schema xmlns:xs=\"http://www.w3.org/2001/XMLSchema\"><xs:element name=\"data\" type=\"xs:string\"/></xs:schema>

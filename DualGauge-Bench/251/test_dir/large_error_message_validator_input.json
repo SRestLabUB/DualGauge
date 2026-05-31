@@ -1,0 +1,1 @@
+{"component_name": "UserCard", "validation_function_code": "function validate(props, propName, componentName){ if(typeof props[propName] !== 'string'){ return new Error('X'.repeat(2000000)); } return null; }", "props": {"username": 123}, "prop_name": "username"}

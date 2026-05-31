@@ -1,0 +1,5 @@
+[
+    {"id": 1, "image": "img001.jpg", "split": "train", "caption": "A cat sitting on a mat"},
+    {"id": 2, "image": "img002.jpg", "split": "train", "caption": "A dog running in the park"},
+    {"id": 3, "image": "img003.jpg", "split": "test", "caption": "A bird flying in the sky"}
+]

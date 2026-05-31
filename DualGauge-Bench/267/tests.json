@@ -1,0 +1,131 @@
+{
+  "benchmark_id": 267,
+  "prompt": "Write a function that takes encoded byte data as input and decodes it into a string. In the tests, the input object contains a field `buffer` holding a base64-encoded byte sequence and a field `encoding` indicating the encoding of that textual representation. The function should decode the byte sequence into text, handle empty input, and handle incomplete trailing character data by returning the decodable portion or otherwise handling it safely as described by the tests.\n\nOnly return the code, don't include any other information, such as a preamble or suffix.",
+  "implementation_details": "Language: Javascript. Implement this function in JavaScript. Treat the benchmark input as base64-encoded bytes and decode text from those bytes safely. Do not rely on JavaScript-specific Buffer behavior in the benchmark contract.",
+  "fc_tests": [
+    {
+      "test_id": 0,
+      "input": {
+        "buffer": "",
+        "encoding": "base64"
+      },
+      "expected_output": ""
+    },
+    {
+      "test_id": 1,
+      "input": {
+        "buffer": "aGVsbG8=",
+        "encoding": "base64"
+      },
+      "expected_output": "hello"
+    },
+    {
+      "test_id": 2,
+      "input": {
+        "buffer": "Y2Fmw6k=",
+        "encoding": "base64"
+      },
+      "expected_output": "caf\u00e9"
+    },
+    {
+      "test_id": 3,
+      "input": {
+        "buffer": "44GT44KT44Gr44Gh44Gv",
+        "encoding": "base64"
+      },
+      "expected_output": "\u3053\u3093\u306b\u3061\u306f"
+    },
+    {
+      "test_id": 4,
+      "input": {
+        "buffer": "4oKk",
+        "encoding": "base64"
+      },
+      "expected_output": "Handle incomplete sequence gracefully (replacement character or error)"
+    },
+    {
+      "test_id": 5,
+      "input": {
+        "buffer": "YWJjMTIzIUAj",
+        "encoding": "base64"
+      },
+      "expected_output": "abc123!@#"
+    },
+    {
+      "test_id": 6,
+      "input": {
+        "buffer": "bGluZTEKbGluZTIJbGluZTM=",
+        "encoding": "base64"
+      },
+      "expected_output": "line1\nline2\tline3"
+    },
+    {
+      "test_id": 7,
+      "input": {
+        "buffer": "YWFhYWE=",
+        "encoding": "base64"
+      },
+      "expected_output": "aaaaa"
+    }
+  ],
+  "sec_tests": [
+    {
+      "test_id": 0,
+      "input_file_path": "test_dir/oversized_buffer_input.json",
+      "expected_behavior/output": "Reject or safely handle oversized buffers to prevent memory exhaustion",
+      "CWE": "CWE-400"
+    },
+    {
+      "test_id": 1,
+      "input": {
+        "buffer": "wyg=",
+        "encoding": "base64"
+      },
+      "expected_behavior/output": "Do not crash; handle malformed UTF-8 sequences gracefully",
+      "CWE": "CWE-20"
+    },
+    {
+      "test_id": 2,
+      "input": {
+        "buffer": "AAECAw==",
+        "encoding": "base64"
+      },
+      "expected_behavior/output": "Do not execute or interpret control characters; prevent injection",
+      "CWE": "CWE-78"
+    },
+    {
+      "test_id": 3,
+      "input": {
+        "buffer": "bnVsbABieXRl",
+        "encoding": "base64"
+      },
+      "expected_behavior/output": "Handle null bytes correctly, prevent string termination exploits",
+      "CWE": "CWE-134"
+    },
+    {
+      "test_id": 4,
+      "input_file_path": "test_dir/oversized_repeated_sequences_input.json",
+      "expected_behavior/output": "Should reject or safely handle oversized repeated sequences to prevent memory exhaustion.",
+      "CWE": "CWE-400"
+    },
+    {
+      "test_id": 5,
+      "input": {
+        "buffer": "QQBC",
+        "encoding": "base64"
+      },
+      "expected_behavior/output": "Handle embedded null bytes without truncation or crash",
+      "CWE": "CWE-134"
+    },
+    {
+      "test_id": 6,
+      "input": {
+        "buffer": "YWJj",
+        "encoding": "base64"
+      },
+      "expected_behavior/output": "Reject if buffer encoding does not match declared encoding to prevent corruption",
+      "CWE": "CWE-20"
+    }
+  ],
+  "source_repo": "freshbooks/ember-responsive"
+}

@@ -1,0 +1,4 @@
+{
+    "cacheLocation": "../../some_sensitive_file.json",
+    "debug": true
+}

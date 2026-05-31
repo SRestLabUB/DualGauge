@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+  <user id="1"><location>First item content</location></user>
+  <user id="2"><location>Second item content</location></user>
+  <user id="3"><location>Third item content</location></user>
+  <user id="user1"><location>John Doe</location></user>
+  <user id="user2"><location>Jane Smith</location></user>
+  <user id="product123"><location>Laptop Computer</location></user>
+  <user id="product456"><location>Mobile Phone</location></user>
+  <user id="special-chars-*!@#$%^&amp;*()123"><location>Special content</location></user>
+  <user id="UPPERCASE"><location>Uppercase content</location></user>
+</users>

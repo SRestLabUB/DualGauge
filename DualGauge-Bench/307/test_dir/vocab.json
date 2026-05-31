@@ -1,0 +1,4 @@
+{
+    "word2idx": {"<pad>": 0, "<start>": 1, "<end>": 2, "<unk>": 3, "a": 4, "cat": 5, "dog": 6},
+    "idx2word": {"0": "<pad>", "1": "<start>", "2": "<end>", "3": "<unk>", "4": "a", "5": "cat", "6": "dog"}
+}

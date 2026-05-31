@@ -1,0 +1,1 @@
+Sample gzipped payload for benchmark.

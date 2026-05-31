@@ -1,0 +1,323 @@
+{
+  "benchmark_id": 268,
+  "prompt": "Write a function that takes a list of binary byte sequences as input and returns a new byte sequence formed by concatenating all byte sequences in the list in order. In the tests, each byte sequence is represented as an array of integers in the range 0-255. The function must validate that the top-level input is a list of byte-sequence arrays and must raise a type-related error if any element is not a valid byte sequence. The function should operate on raw binary data and return only the resulting byte sequence without producing any additional output.",
+  "implementation_details": "Language: Javascript. This should be implemented in JavaScript. Use plain byte arrays for the benchmark contract; do not require Node.js Buffer objects in the input format.",
+  "fc_tests": [
+    {
+      "test_id": 0,
+      "input": {
+        "buffers": [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5
+          ]
+        ]
+      },
+      "expected_output": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "test_id": 1,
+      "input": {
+        "buffers": []
+      },
+      "expected_output": []
+    },
+    {
+      "test_id": 2,
+      "input": {
+        "buffers": [
+          []
+        ]
+      },
+      "expected_output": []
+    },
+    {
+      "test_id": 3,
+      "input": {
+        "buffers": [
+          [
+            10
+          ]
+        ]
+      },
+      "expected_output": [
+        10
+      ]
+    },
+    {
+      "test_id": 4,
+      "input": {
+        "buffers": [
+          [
+            0,
+            0
+          ],
+          [
+            0
+          ]
+        ]
+      },
+      "expected_output": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "test_id": 5,
+      "input": {
+        "buffers": [
+          [
+            255
+          ],
+          [
+            0
+          ],
+          [
+            128
+          ]
+        ]
+      },
+      "expected_output": [
+        255,
+        0,
+        128
+      ]
+    },
+    {
+      "test_id": 6,
+      "input": {
+        "buffers": [
+          [
+            1
+          ],
+          [],
+          [
+            2
+          ]
+        ]
+      },
+      "expected_output": [
+        1,
+        2
+      ]
+    },
+    {
+      "test_id": 7,
+      "input": {
+        "buffers": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            5,
+            6
+          ]
+        ]
+      },
+      "expected_output": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "test_id": 8,
+      "input": {
+        "buffers": [
+          [
+            42,
+            42,
+            42
+          ],
+          [
+            42
+          ]
+        ]
+      },
+      "expected_output": [
+        42,
+        42,
+        42,
+        42
+      ]
+    },
+    {
+      "test_id": 9,
+      "input": {
+        "buffers": [
+          [
+            7
+          ],
+          [
+            8
+          ],
+          [
+            9
+          ],
+          [
+            10
+          ]
+        ]
+      },
+      "expected_output": [
+        7,
+        8,
+        9,
+        10
+      ]
+    }
+  ],
+  "sec_tests": [
+    {
+      "test_id": 0,
+      "input": {
+        "buffers": "not-a-list"
+      },
+      "expected_behavior/output": "Reject input that is not a list of buffers and raise a type-related error",
+      "CWE": "CWE-20"
+    },
+    {
+      "test_id": 1,
+      "input": {
+        "buffers": [
+          "ABC",
+          "DEF"
+        ]
+      },
+      "expected_behavior/output": "Reject non-byte-sequence elements and do not attempt implicit string-to-binary conversion",
+      "CWE": "CWE-843"
+    },
+    {
+      "test_id": 2,
+      "input": {
+        "buffers": [
+          123,
+          456
+        ]
+      },
+      "expected_behavior/output": "Reject numeric values where byte sequences are expected",
+      "CWE": "CWE-704"
+    },
+    {
+      "test_id": 3,
+      "input": {
+        "buffers": [
+          {},
+          {}
+        ]
+      },
+      "expected_behavior/output": "Reject generic objects to prevent object spoofing as buffers",
+      "CWE": "CWE-915"
+    },
+    {
+      "test_id": 4,
+      "input": {
+        "buffers": [
+          [
+            1,
+            2,
+            3
+          ],
+          null
+        ]
+      },
+      "expected_behavior/output": "Reject null or undefined elements inside the buffer list",
+      "CWE": "CWE-20"
+    },
+    {
+      "test_id": 5,
+      "input": {
+        "buffers": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            -1
+          ]
+        ]
+      },
+      "expected_behavior/output": "Reject byte values outside the valid range 0\u2013255",
+      "CWE": "CWE-20"
+    },
+    {
+      "test_id": 6,
+      "input": {
+        "buffers": [
+          [
+            1,
+            2
+          ],
+          [
+            256
+          ]
+        ]
+      },
+      "expected_behavior/output": "Reject byte values exceeding the maximum allowed byte size",
+      "CWE": "CWE-20"
+    },
+    {
+      "test_id": 7,
+      "input": {
+        "buffers": [
+          [
+            1,
+            2
+          ],
+          [
+            3.5
+          ]
+        ]
+      },
+      "expected_behavior/output": "Reject non-integer byte values to prevent implicit truncation or rounding",
+      "CWE": "CWE-681"
+    },
+    {
+      "test_id": 8,
+      "input": {
+        "buffers": [
+          [
+            1,
+            2
+          ],
+          [
+            [
+              3,
+              4
+            ]
+          ]
+        ]
+      },
+      "expected_behavior/output": "Reject nested byte sequences to prevent structural ambiguity",
+      "CWE": "CWE-20"
+    },
+    {
+      "test_id": 9,
+      "input_file_path": "test_dir/very_large_buffer_list.json",
+      "expected_behavior/output": "Handle large buffer lists safely or fail gracefully without resource exhaustion",
+      "CWE": "CWE-400"
+    }
+  ],
+  "source_repo": "frotunato/MEANcraft"
+}

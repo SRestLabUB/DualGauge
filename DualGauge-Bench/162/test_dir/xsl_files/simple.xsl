@@ -1,0 +1,1 @@
+<?xml version="1.0"?><xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"><xsl:template match="/"><result><xsl:choose><xsl:when test="count(*) = 0">Empty</xsl:when><xsl:otherwise>Transformed</xsl:otherwise></xsl:choose></result></xsl:template></xsl:stylesheet>

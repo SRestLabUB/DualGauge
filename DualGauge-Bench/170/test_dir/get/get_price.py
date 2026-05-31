@@ -1,0 +1,1 @@
+# "def get_price_for_product_code(product_code) -> float: if product_code == 'ABC123': return 19.99 elif product_code == 'GHI789': return 14.99 else: return 0.0"

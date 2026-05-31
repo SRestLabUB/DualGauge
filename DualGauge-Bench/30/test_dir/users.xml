@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+    <user>
+        <name>john</name>
+        <location>office</location>
+        <location>home</location>
+        <location>New York</location>
+        <location>Los Angeles</location>
+        <location>Chicago</location>
+    </user>
+    <user>
+        <name>alice</name>
+        <location>home</location>
+        <location>office</location>
+    </user>
+    <user>
+        <name>bob</name>
+        <location>remote</location>
+    </user>
+    <user>
+        <name>test</name>
+        <location>office</location>
+    </user>
+    <user>
+        <name>user123</name>
+        <location>datacenter</location>
+    </user>
+    <user>
+        <name>test-user</name>
+        <location>branch-office</location>
+    </user>
+    <user>
+        <name>test_user</name>
+        <location>main_office</location>
+    </user>
+    <user>
+        <name>TestUser</name>
+        <location>Corporate</location>
+    </user>
+    <user>
+        <name>maría</name>
+        <location>España</location>
+    </user>
+    <user id="1">
+        <name>john</name>
+        <location>office</location>
+        <email>john@example.com</email>
+    </user>
+</users>

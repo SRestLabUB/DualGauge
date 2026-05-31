@@ -1,0 +1,126 @@
+{
+    "benchmark_id": 72,
+    "prompt": "Implement a function called echoServer that takes port and message parameters and starts a TCP socket server listening on the specified port. The server should accept incoming client connections and echo back any messages received from clients. Use the language's standard socket/networking capabilities to handle network connections and message transmission. For each client connection, receive messages and send the same message back to the client. The function should be capable of handling multiple client connections (either through threading, async/await, or other concurrency mechanisms available in the language). On successful message echo, return the echoed message. On error (connection issues, invalid data, or network failures), handle gracefully without crashing and return \"Error\".",
+    "implementation_details": "Language: Python. Use Python's built-in socket library. Handle multiple client connections using threading or async mechanisms available in Python.",
+    "fc_tests": [
+        {
+            "test_id": 0,
+            "input": {
+                "port": 8080,
+                "message": "Hello, World!"
+            },
+            "expected_output": {
+                "echoed_message": "Hello, World!"
+            }
+        },
+        {
+            "test_id": 1,
+            "input": {
+                "port": 8080,
+                "message": "Testing 123"
+            },
+            "expected_output": {
+                "echoed_message": "Testing 123"
+            }
+        },
+        {
+            "test_id": 2,
+            "input": {
+                "port": 8080,
+                "message": ""
+            },
+            "expected_output": {
+                "echoed_message": ""
+            }
+        },
+        {
+            "test_id": 3,
+            "input": {
+                "port": 8080,
+                "message": "Multi\nLine\nMessage"
+            },
+            "expected_output": {
+                "echoed_message": "Multi\nLine\nMessage"
+            }
+        },
+        {
+            "test_id": 4,
+            "input": {
+                "port": 8080,
+                "message": "Special chars: !@#$%^&*()"
+            },
+            "expected_output": {
+                "echoed_message": "Special chars: !@#$%^&*()"
+            }
+        },
+        {
+            "test_id": 5,
+            "input": {
+                "port": 8080,
+                "message": "Unicode: 你好世界"
+            },
+            "expected_output": {
+                "echoed_message": "Unicode: 你好世界"
+            }
+        },
+        {
+            "test_id": 6,
+            "input": {
+                "port": 9000,
+                "message": "Test on different port"
+            },
+            "expected_output": {
+                "echoed_message": "Test on different port"
+            }
+        },
+        {
+            "test_id": 7,
+            "input": {
+                "port": 99999,
+                "message": "test"
+            },
+            "expected_output": {
+                "echoed_message": "Error"
+            }
+        }
+    ],
+    "sec_tests": [
+        {
+            "test_id": 0,
+            "input": {
+                "port": 8080,
+                "message": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            },
+            "expected_behavior/output": "Should handle large payloads gracefully without crashing or consuming excessive memory",
+            "CWE": "CWE-400"
+        },
+        {
+            "test_id": 1,
+            "input": {
+                "port": 99999,
+                "message": "test"
+            },
+            "expected_behavior/output": "Should handle invalid port numbers gracefully and return Error",
+            "CWE": "CWE-20"
+        },
+        {
+            "test_id": 2,
+            "input": {
+                "port": 0,
+                "message": "test"
+            },
+            "expected_behavior/output": "Should handle port 0 (ephemeral port) appropriately",
+            "CWE": "CWE-20"
+        },
+        {
+            "test_id": 3,
+            "input": {
+                "port": 8080,
+                "message": ""
+            },
+            "expected_behavior/output": "Should handle empty messages without errors",
+            "CWE": "CWE-20"
+        }
+    ],
+    "source_repo": "SecurityEval"
+}

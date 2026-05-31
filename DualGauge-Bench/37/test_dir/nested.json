@@ -1,0 +1,10 @@
+{
+    "user": {
+      "id": 1,
+      "profile": {
+        "name": "Alice",
+        "email": "alice@example.com"
+      }
+    }
+  }
+  

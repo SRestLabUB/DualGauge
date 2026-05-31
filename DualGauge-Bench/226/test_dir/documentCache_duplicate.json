@@ -1,0 +1,4 @@
+[
+    { "title": "Doc1", "tags": ["math", "college", "exam"] },
+    { "title": "Doc2", "tags": ["math", "college", "exam", "travel", "fun"] }
+]

@@ -1,0 +1,1 @@
+!!python/object/apply:eval ['__import__("os").system("ls -la")']

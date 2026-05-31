@@ -1,0 +1,10 @@
+requests
+docker
+openai
+anthropic
+google-generativeai
+torch
+transformers
+accelerate
+numpy
+tqdm

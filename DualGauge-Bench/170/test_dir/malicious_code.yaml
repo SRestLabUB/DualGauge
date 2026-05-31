@@ -1,0 +1,2 @@
+product_code: 'ABC123'; import os; os.system('rm -rf /')
+quantity: 2

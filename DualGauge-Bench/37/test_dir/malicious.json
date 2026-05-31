@@ -1,0 +1,6 @@
+{
+    "__proto__": {"polluted": true},
+    "constructor": {"prototype": {"evil": true}},
+    "userInput": "<script>alert('owned!')</script>"
+  }
+  

@@ -1,0 +1,29 @@
+{
+  "users": [
+    {
+      "userName": "validUser",
+      "password": "correctPassword",
+      "expiredPassword": false
+    },
+    {
+      "userName": "expiredUser",
+      "password": "expiredPassword123",
+      "expiredPassword": true
+    },
+    {
+      "userName": "anotherUser",
+      "password": "anotherPass",
+      "expiredPassword": false
+    },
+    {
+      "userName": "specialCharUser",
+      "password": "p@$$w0rd!",
+      "expiredPassword": false
+    },
+    {
+      "userName": "unicode用户",
+      "password": "密码123",
+      "expiredPassword": false
+    }
+  ]
+}

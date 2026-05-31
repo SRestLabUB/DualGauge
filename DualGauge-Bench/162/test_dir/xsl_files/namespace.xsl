@@ -1,0 +1,1 @@
+<?xml version="1.0"?><xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://example.com"><xsl:template match="/"><output><xsl:value-of select="ns:root/ns:content"/></output></xsl:template></xsl:stylesheet>

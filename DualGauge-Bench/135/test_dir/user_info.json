@@ -1,0 +1,8 @@
+{
+	"users": {
+		"john": {
+			"full_name": "John Doe",
+			"role": "user"
+		}
+	}
+}

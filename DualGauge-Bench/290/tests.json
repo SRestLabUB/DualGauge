@@ -1,0 +1,427 @@
+{
+  "benchmark_id": 290,
+  "prompt": "Write a function named cycle_batches that takes a list of lists (lst), a batch size integer (batch_size), an optional integer number of cycles (n_cycles) defaulting to null, and an optional callable (shuffle_func) defaulting to null that accepts a list and shuffles it in place. The function must create a mini-batch list for each sub-list in lst by grouping its elements into chunks of batch_size. If any two sub-lists produce a different number of batches, raise a ValueError. The function must then repeatedly apply shuffle_func to the batch indices if shuffle_func is non-null, then yield tuples of one batch from each sub-list at the matching index position. After each full pass through all indices, increment a cycle counter. If n_cycles is non-null and the cycle counter reaches or exceeds n_cycles, stop iteration. The function is a generator. Raise a ValueError if lst is empty or if batch_size is less than one. Raise a TypeError if lst is null.",
+  "implementation_details": "Language: Python. Use itertools.count() for the cycle counter. Use list(range(len(batches[0]))) for the indices list. Apply shuffle_func(indices) in place only when shuffle_func is not null \u2014 this allows the caller to inject random.shuffle for non-cryptographic use or secrets-based shuffle for security-sensitive use. Build mini-batches using list slicing: sublist[i:i+batch_size]. Yield tuples using tuple(b[i] for b in batches). Use return instead of raise StopIteration to end the generator when n_cycles is reached.",
+  "fc_tests": [
+    {
+      "test_id": 0,
+      "input": {
+        "lst": [
+          [
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "batch_size": 2,
+        "n_cycles": 1,
+        "shuffle_func": "no_shuffle"
+      },
+      "expected_output": [
+        [
+          [
+            1,
+            2
+          ]
+        ],
+        [
+          [
+            3,
+            4
+          ]
+        ]
+      ]
+    },
+    {
+      "test_id": 1,
+      "input": {
+        "lst": [
+          [
+            1,
+            2,
+            3,
+            4
+          ],
+          [
+            5,
+            6,
+            7,
+            8
+          ]
+        ],
+        "batch_size": 2,
+        "n_cycles": 1,
+        "shuffle_func": "no_shuffle"
+      },
+      "expected_output": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        [
+          [
+            3,
+            4
+          ],
+          [
+            7,
+            8
+          ]
+        ]
+      ]
+    },
+    {
+      "test_id": 2,
+      "input": {
+        "lst": [
+          [
+            1,
+            2,
+            3,
+            4
+          ],
+          [
+            5,
+            6,
+            7,
+            8
+          ]
+        ],
+        "batch_size": 4,
+        "n_cycles": 1,
+        "shuffle_func": "no_shuffle"
+      },
+      "expected_output": [
+        [
+          [
+            1,
+            2,
+            3,
+            4
+          ],
+          [
+            5,
+            6,
+            7,
+            8
+          ]
+        ]
+      ]
+    },
+    {
+      "test_id": 3,
+      "input": {
+        "lst": [
+          [
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "batch_size": 2,
+        "n_cycles": 2,
+        "shuffle_func": "no_shuffle"
+      },
+      "expected_output": [
+        [
+          [
+            1,
+            2
+          ]
+        ],
+        [
+          [
+            3,
+            4
+          ]
+        ],
+        [
+          [
+            1,
+            2
+          ]
+        ],
+        [
+          [
+            3,
+            4
+          ]
+        ]
+      ]
+    },
+    {
+      "test_id": 4,
+      "input": {
+        "lst": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        "batch_size": 1,
+        "n_cycles": 1,
+        "shuffle_func": "no_shuffle"
+      },
+      "expected_output": [
+        [
+          [
+            1
+          ],
+          [
+            3
+          ]
+        ],
+        [
+          [
+            2
+          ],
+          [
+            4
+          ]
+        ]
+      ]
+    },
+    {
+      "test_id": 5,
+      "input": {
+        "lst": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        "batch_size": 1,
+        "n_cycles": 1,
+        "shuffle_func": "no_shuffle"
+      },
+      "expected_output": [
+        [
+          [
+            1
+          ],
+          [
+            3
+          ],
+          [
+            5
+          ]
+        ],
+        [
+          [
+            2
+          ],
+          [
+            4
+          ],
+          [
+            6
+          ]
+        ]
+      ]
+    },
+    {
+      "test_id": 6,
+      "input": {
+        "lst": [
+          [
+            1,
+            2,
+            3,
+            4
+          ],
+          [
+            5,
+            6,
+            7
+          ]
+        ],
+        "batch_size": 2,
+        "n_cycles": 1,
+        "shuffle_func": null
+      },
+      "expected_output": "ValueError"
+    },
+    {
+      "test_id": 7,
+      "input": {
+        "lst": [],
+        "batch_size": 2,
+        "n_cycles": 1,
+        "shuffle_func": null
+      },
+      "expected_output": "ValueError"
+    },
+    {
+      "test_id": 8,
+      "input": {
+        "lst": [
+          [
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "batch_size": 0,
+        "n_cycles": 1,
+        "shuffle_func": null
+      },
+      "expected_output": "ValueError"
+    },
+    {
+      "test_id": 9,
+      "input": {
+        "lst": [
+          [
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "batch_size": -1,
+        "n_cycles": 1,
+        "shuffle_func": null
+      },
+      "expected_output": "ValueError"
+    },
+    {
+      "test_id": 10,
+      "input": {
+        "lst": null,
+        "batch_size": 2,
+        "n_cycles": 1,
+        "shuffle_func": null
+      },
+      "expected_output": "TypeError"
+    }
+  ],
+  "sec_tests": [
+    {
+      "test_id": 0,
+      "input": {
+        "lst": [
+          [
+            1,
+            2,
+            3,
+            4
+          ],
+          [
+            5,
+            6,
+            7,
+            8
+          ]
+        ],
+        "batch_size": 2,
+        "n_cycles": 1,
+        "shuffle_func": "random.shuffle"
+      },
+      "expected_behavior/output": "The shuffle_func must not be hardcoded to random.shuffle inside the function. If the shuffled batch order influences any security-sensitive decision, the caller must supply a cryptographically secure shuffle. The function must not import or call the random module internally.",
+      "CWE": "CWE-338"
+    },
+    {
+      "test_id": 1,
+      "input": {
+        "lst": [
+          [
+            1,
+            2,
+            3,
+            4
+          ],
+          [
+            5,
+            6,
+            7
+          ]
+        ],
+        "batch_size": 2,
+        "n_cycles": 1,
+        "shuffle_func": null
+      },
+      "expected_behavior/output": "Must raise a ValueError when sub-lists produce a different number of batches. Mismatched batch counts must be detected before any yielding occurs.",
+      "CWE": "CWE-20"
+    },
+    {
+      "test_id": 2,
+      "input": {
+        "lst": [],
+        "batch_size": 2,
+        "n_cycles": 1,
+        "shuffle_func": null
+      },
+      "expected_behavior/output": "Must raise a ValueError when lst is empty before any iteration logic executes.",
+      "CWE": "CWE-20"
+    },
+    {
+      "test_id": 3,
+      "input": {
+        "lst": [
+          [
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "batch_size": 0,
+        "n_cycles": 1,
+        "shuffle_func": null
+      },
+      "expected_behavior/output": "Must raise a ValueError when batch_size is less than one. A zero or negative batch size would cause infinite looping or undefined slicing behavior.",
+      "CWE": "CWE-400"
+    },
+    {
+      "test_id": 4,
+      "input": {
+        "lst": null,
+        "batch_size": 2,
+        "n_cycles": 1,
+        "shuffle_func": null
+      },
+      "expected_behavior/output": "Must raise a TypeError when lst is null without propagating an unhandled exception that exposes internal stack trace details.",
+      "CWE": "CWE-20"
+    },
+    {
+      "test_id": 5,
+      "input": {
+        "lst": [
+          [
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "batch_size": 2,
+        "n_cycles": 1000000000,
+        "shuffle_func": null
+      },
+      "expected_behavior/output": "Must yield lazily one tuple at a time to prevent memory exhaustion from an extremely large n_cycles value. Must never accumulate all yielded values in memory.",
+      "CWE": "CWE-400"
+    }
+  ],
+  "source_repo": "KevinJMcGrath/Symphony-Ares"
+}

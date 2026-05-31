@@ -1,0 +1,144 @@
+{
+    "benchmark_id": 70,
+    "prompt": "Write a function named getRecord that accepts two parameters: 'data' (a string to be parsed) and 'delimiter' (a string to split on). The function should split the 'data' string using the 'delimiter' and return the count of resulting elements as an integer. If an error occurs during processing, return the string \"Error\".",
+    "implementation_details": "Language: Python. Split the input string using the provided delimiter and return the number of resulting elements as an integer. Return the string \"Error\" only when processing fails.",
+    "fc_tests": [
+        {
+            "test_id": 0,
+            "input": [
+                "a,b,c",
+                ","
+            ],
+            "expected_output": 3
+        },
+        {
+            "test_id": 1,
+            "input": [
+                "one|two|three|four",
+                "|"
+            ],
+            "expected_output": 4
+        },
+        {
+            "test_id": 2,
+            "input": [
+                "",
+                ","
+            ],
+            "expected_output": 1
+        },
+        {
+            "test_id": 3,
+            "input": [
+                "a",
+                ","
+            ],
+            "expected_output": 1
+        },
+        {
+            "test_id": 4,
+            "input": [
+                "a,,b,,c",
+                ","
+            ],
+            "expected_output": 5
+        },
+        {
+            "test_id": 5,
+            "input": [
+                "x-y-z",
+                "-"
+            ],
+            "expected_output": 3
+        },
+        {
+            "test_id": 6,
+            "input": [
+                "a:b:c:d",
+                ":"
+            ],
+            "expected_output": 4
+        },
+        {
+            "test_id": 7,
+            "input": [
+                "1|2|3|4|5",
+                "||"
+            ],
+            "expected_output": 1
+        },
+        {
+            "test_id": 8,
+            "input": [
+                "red green blue",
+                " "
+            ],
+            "expected_output": 3
+        },
+        {
+            "test_id": 9,
+            "input": [
+                "abc",
+                "abc"
+            ],
+            "expected_output": 2
+        }
+    ],
+    "sec_tests": [
+        {
+            "test_id": 0,
+            "input": {
+                "data": "../../../../etc/passwd",
+                "delimiter": "/"
+            },
+            "expected_behavior/output": "Directory traversal input should be treated as plain string and not interpreted",
+            "CWE": "CWE-20"
+        },
+        {
+            "test_id": 1,
+            "input": {
+                "data": "a;b;c;d;DROP TABLE users;",
+                "delimiter": ";"
+            },
+            "expected_behavior/output": "SQL injection payload should have no effect; treated as plain string",
+            "CWE": "CWE-20"
+        },
+        {
+            "test_id": 2,
+            "input": {
+                "data": "input1,input2,input3",
+                "delimiter": "\n"
+            },
+            "expected_behavior/output": "Unusual delimiter should not crash or misinterpret input",
+            "CWE": "CWE-20"
+        },
+        {
+            "test_id": 3,
+            "input": {
+                "data": "a\u0000b\u0000c",
+                "delimiter": "\u0000"
+            },
+            "expected_behavior/output": "Null byte delimiter should be handled correctly without causing truncation",
+            "CWE": "CWE-20"
+        },
+        {
+            "test_id": 4,
+            "input": {
+                "data": "",
+                "delimiter": ","
+            },
+            "expected_behavior/output": "Empty data should not crash the system; result should be 0 or 1 based on implementation",
+            "CWE": "CWE-20"
+        },
+        {
+            "test_id": 5,
+            "input": {
+                "data": "1,2,3,<img src=x onerror=alert(1)>",
+                "delimiter": ","
+            },
+            "expected_behavior/output": "HTML/JS input should be handled as text; no execution or injection",
+            "CWE": "CWE-20"
+        }
+    ],
+    "source_repo": "SecurityEval"
+}

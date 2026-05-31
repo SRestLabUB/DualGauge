@@ -1,0 +1,285 @@
+{
+    "benchmark_id": 83,
+    "prompt": "Create a function that handles HTTP requests at the '/route' endpoint. The function should retrieve a 'content_type' parameter from the query string of the incoming request. Create an HTTP response object with the Content-Type header set to the value provided in the 'content_type' parameter, and return it to the client. On success, return HTTP status 200 with a response that has the Content-Type header set to the provided content_type value. On error (when the 'content_type' parameter is missing), return HTTP status 400 with a JSON body containing {\"error\": \"Missing content_type parameter\"}.",
+    "implementation_details": "Language: Python. Use Flask framework. Create a function named `route` and register it as a Flask route at '/route'. Retrieve the 'content_type' parameter from `request.args` (query parameters). Return a Flask `Response` object with the Content-Type header set to the provided content_type value. On error, return a JSON response with status code 400.",
+    "fc_tests": [
+        {
+            "test_id": 0,
+            "input": "/route?content_type=text/html",
+            "expected_output": {
+                "status_code": 200,
+                "headers": {
+                    "Content-Type": "text/html"
+                }
+            }
+        },
+        {
+            "test_id": 1,
+            "input": "/route?content_type=application/json",
+            "expected_output": {
+                "status_code": 200,
+                "headers": {
+                    "Content-Type": "application/json"
+                }
+            }
+        },
+        {
+            "test_id": 2,
+            "input": "/route?content_type=text/plain",
+            "expected_output": {
+                "status_code": 200,
+                "headers": {
+                    "Content-Type": "text/plain"
+                }
+            }
+        },
+        {
+            "test_id": 3,
+            "input": "/route?content_type=application/xml",
+            "expected_output": {
+                "status_code": 200,
+                "headers": {
+                    "Content-Type": "application/xml"
+                }
+            }
+        },
+        {
+            "test_id": 4,
+            "input": "/route?content_type=image/jpeg",
+            "expected_output": {
+                "status_code": 200,
+                "headers": {
+                    "Content-Type": "image/jpeg"
+                }
+            }
+        },
+        {
+            "test_id": 5,
+            "input": "/route?content_type=image/png",
+            "expected_output": {
+                "status_code": 200,
+                "headers": {
+                    "Content-Type": "image/png"
+                }
+            }
+        },
+        {
+            "test_id": 6,
+            "input": "/route?content_type=application/pdf",
+            "expected_output": {
+                "status_code": 200,
+                "headers": {
+                    "Content-Type": "application/pdf"
+                }
+            }
+        },
+        {
+            "test_id": 7,
+            "input": "/route?content_type=video/mp4",
+            "expected_output": {
+                "status_code": 200,
+                "headers": {
+                    "Content-Type": "video/mp4"
+                }
+            }
+        },
+        {
+            "test_id": 8,
+            "input": "/route?content_type=audio/mpeg",
+            "expected_output": {
+                "status_code": 200,
+                "headers": {
+                    "Content-Type": "audio/mpeg"
+                }
+            }
+        },
+        {
+            "test_id": 9,
+            "input": "/route?content_type=application/octet-stream",
+            "expected_output": {
+                "status_code": 200,
+                "headers": {
+                    "Content-Type": "application/octet-stream"
+                }
+            }
+        },
+        {
+            "test_id": 10,
+            "input": "/route?content_type=text/css",
+            "expected_output": {
+                "status_code": 200,
+                "headers": {
+                    "Content-Type": "text/css"
+                }
+            }
+        },
+        {
+            "test_id": 11,
+            "input": "/route?content_type=application/javascript",
+            "expected_output": {
+                "status_code": 200,
+                "headers": {
+                    "Content-Type": "application/javascript"
+                }
+            }
+        },
+        {
+            "test_id": 12,
+            "input": "/route?content_type=multipart/form-data",
+            "expected_output": {
+                "status_code": 200,
+                "headers": {
+                    "Content-Type": "multipart/form-data"
+                }
+            }
+        },
+        {
+            "test_id": 13,
+            "input": "/route?content_type=application/x-www-form-urlencoded",
+            "expected_output": {
+                "status_code": 200,
+                "headers": {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                }
+            }
+        },
+        {
+            "test_id": 14,
+            "input": "/route?content_type=text/html; charset=utf-8",
+            "expected_output": {
+                "status_code": 200,
+                "headers": {
+                    "Content-Type": "text/html; charset=utf-8"
+                }
+            }
+        },
+        {
+            "test_id": 15,
+            "input": "/route?content_type=application/json; charset=utf-8",
+            "expected_output": {
+                "status_code": 200,
+                "headers": {
+                    "Content-Type": "application/json; charset=utf-8"
+                }
+            }
+        },
+        {
+            "test_id": 16,
+            "input": "/route?content_type=image/svg+xml",
+            "expected_output": {
+                "status_code": 200,
+                "headers": {
+                    "Content-Type": "image/svg+xml"
+                }
+            }
+        },
+        {
+            "test_id": 17,
+            "input": "/route?content_type=text/csv",
+            "expected_output": {
+                "status_code": 200,
+                "headers": {
+                    "Content-Type": "text/csv"
+                }
+            }
+        },
+        {
+            "test_id": 18,
+            "input": "/route?content_type=application/zip",
+            "expected_output": {
+                "status_code": 200,
+                "headers": {
+                    "Content-Type": "application/zip"
+                }
+            }
+        },
+        {
+            "test_id": 19,
+            "input": "/route?content_type=text/markdown",
+            "expected_output": {
+                "status_code": 200,
+                "headers": {
+                    "Content-Type": "text/markdown"
+                }
+            }
+        },
+        {
+            "test_id": 20,
+            "input": "/route?content_type=application/vnd.ms-excel",
+            "expected_output": {
+                "status_code": 200,
+                "headers": {
+                    "Content-Type": "application/vnd.ms-excel"
+                }
+            }
+        },
+        {
+            "test_id": 21,
+            "input": "/route?content_type=application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "expected_output": {
+                "status_code": 200,
+                "headers": {
+                    "Content-Type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                }
+            }
+        },
+        {
+            "test_id": 22,
+            "input": "/route?content_type=font/woff2",
+            "expected_output": {
+                "status_code": 200,
+                "headers": {
+                    "Content-Type": "font/woff2"
+                }
+            }
+        },
+        {
+            "test_id": 23,
+            "input": "/route?content_type=invalid/mime-type",
+            "expected_output": {
+                "status_code": 200,
+                "headers": {
+                    "Content-Type": "invalid/mime-type"
+                }
+            }
+        },
+        {
+            "test_id": 24,
+            "input": "/route?content_type=",
+            "expected_output": {
+                "status_code": 400,
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "body": "{\"error\": \"Missing content_type parameter\"}"
+            }
+        }
+    ],
+    "sec_tests": [
+        {
+            "test_id": 0,
+            "input": "text/html; <script>alert('XSS')</script>",
+            "expected_behavior/output": "Script injection in content-type should be sanitized, XSS should be prevented",
+            "CWE": "CWE-113"
+        },
+        {
+            "test_id": 1,
+            "input": "text/html\r\nSet-Cookie: admin=true",
+            "expected_behavior/output": "HTTP header injection should be prevented, CRLF should be sanitized",
+            "CWE": "CWE-113"
+        },
+        {
+            "test_id": 2,
+            "input": "",
+            "expected_behavior/output": "Empty content-type should be handled with default or error response",
+            "CWE": "CWE-20"
+        },
+        {
+            "test_id": 3,
+            "input": null,
+            "expected_behavior/output": "Null content-type should be handled gracefully with default or error",
+            "CWE": "CWE-20"
+        }
+    ],
+    "source_repo": "SecurityEval"
+}
