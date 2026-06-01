@@ -1,5 +1,6 @@
 # DualGauge
 
+**Paper**: [arXiv:2511.20709](https://arxiv.org/abs/2511.20709) | **Data**: [Zenodo](https://zenodo.org/uploads/20480618)
 
 **DualGauge** is the first fully automated framework for jointly evaluating the **functional correctness** and **security** of specification-only LLM code generation. Existing benchmarks measure one or the other — DualGauge measures both simultaneously, revealing that functional correctness substantially overestimates reliable code generation: the strongest model achieves 38.6% pass@1 on Python but only 14.8% secure-pass@1.
 
@@ -100,4 +101,8 @@ python3 DualGauge/Phase4_aggregation_dashboard/calculate_all_metrics.py \
 
 ## Experimental Data
 
-Pre-computed results for all 45+ model configurations are available via Google Drive. See [BenchmarkingExperiments/README.md](BenchmarkingExperiments/README.md) for the download link and directory structure.
+Pre-computed results for all evaluated configurations (10 LLMs × 3 languages, 3 agentic coding systems, and 45+ Python-only factor sweeps) are available on Zenodo:
+
+**[https://zenodo.org/uploads/20480618](https://zenodo.org/uploads/20480618)**
+
+See [BenchmarkingExperiments/README.md](BenchmarkingExperiments/README.md) for the directory structure and replication instructions.
