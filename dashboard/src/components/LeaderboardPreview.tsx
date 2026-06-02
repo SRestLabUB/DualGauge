@@ -115,8 +115,7 @@ const LeaderboardPreview: React.FC = () => {
 			</AnimatedSection>
 
 			<AnimatedSection delay={0.15}>
-				<AnimatedSection delay={0.2}>
-			<div className="mt-6 text-center">
+				<div className="mt-6 text-center">
 					<a
 						href="/leaderboard"
 						className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200"
