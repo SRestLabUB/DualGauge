@@ -100,9 +100,9 @@ const LeaderboardPreview: React.FC = () => {
 
 			<AnimatedSection delay={0.15}>
 				<p className="mt-4 text-xs leading-relaxed" style={{ color: "var(--color-text-secondary)", opacity: 0.8 }}>
-					<strong style={{ color: "var(--color-text-primary)" }}>pass@1</strong> — % of tasks where the single sample passes all functional tests. &nbsp;
-					<strong style={{ color: "var(--color-text-primary)" }}>secure@1</strong> — % passing all security tests. &nbsp;
-					<strong style={{ color: "var(--color-text-primary)" }}>secure-pass@1</strong> — % passing both simultaneously (the primary joint metric).
+					<strong style={{ color: "var(--color-text-primary)" }}>pass@1</strong> — fraction of problems where the single sample passes all functional tests (functional correctness). &nbsp;
+					<strong style={{ color: "var(--color-text-primary)" }}>secure@1</strong> — same for all security tests (security correctness). &nbsp;
+					<strong style={{ color: "var(--color-text-primary)" }}>secure-pass@1</strong> — fraction passing both functional and security tests simultaneously; the primary joint metric.
 				</p>
 			</AnimatedSection>
 

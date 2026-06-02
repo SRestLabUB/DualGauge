@@ -385,11 +385,11 @@ const LeaderboardPage: React.FC = () => {
 					</p>
 					<div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
 						{[
-							{ name: "pass@1", full: "Pass Rate @ 1", desc: "% of tasks where the model's single sample passes all functional tests. Measures functional correctness." },
-							{ name: "secure@1", full: "Secure Rate @ 1", desc: "% of tasks where the model's single sample passes all security tests. Measures security correctness." },
-							{ name: "secure-pass@1", full: "Joint Rate @ 1", desc: "% of tasks where the sample passes both functional and security tests simultaneously. The primary joint metric." },
-							{ name: "PR", full: "Pass Rate", desc: "Proportion of individual functional test cases passed across the full benchmark (Pfunc / Tfunc)." },
-							{ name: "SPR", full: "Secure Pass Rate", desc: "Proportion of individual security test cases passed across the full benchmark (Psec / Tsec)." },
+							{ name: "pass@1", full: "Functional Correctness", desc: "Fraction of problems where the single generated sample passes all functional tests, averaged over all benchmark problems." },
+							{ name: "secure@1", full: "Security Correctness", desc: "Fraction of problems where the single generated sample passes all security tests, averaged over all benchmark problems." },
+							{ name: "secure-pass@1", full: "Joint Security-Functionality", desc: "Fraction of problems where the single sample passes both all functional and all security tests simultaneously. The primary metric." },
+							{ name: "PR", full: "Pass Rate (Pfunc / Tfunc)", desc: "Proportion of individual functional test cases passed across all problems — a test-case-level metric, unlike pass@1 which is problem-level." },
+							{ name: "SPR", full: "Secure Pass Rate (Psec / Tsec)", desc: "Proportion of individual security test cases passed across all problems — test-case-level analogue of secure@1." },
 						].map((m) => (
 							<div key={m.name} className="flex gap-2">
 								<code
