@@ -4,37 +4,37 @@ import React from "react";
 import AnimatedSection from "./AnimatedSection";
 
 const benchmarks = [
-	{ name: "Pearce et al.", secTest: false, funcTest: false, paired: false, pureNL: false, langAgn: false, cov: false },
-	{ name: "SecurityEval", secTest: false, funcTest: false, paired: false, pureNL: false, langAgn: false, cov: false },
-	{ name: "CodeLMSec", secTest: false, funcTest: false, paired: false, pureNL: false, langAgn: false, cov: false },
-	{ name: "SecuCoGen", secTest: false, funcTest: false, paired: false, pureNL: "partial", langAgn: false, cov: false },
-	{ name: "SafeGenBench", secTest: false, funcTest: false, paired: false, pureNL: true, langAgn: false, cov: false },
-	{ name: "CodeGuard+", secTest: false, funcTest: true, paired: false, pureNL: false, langAgn: false, cov: false },
-	{ name: "LiveBench", secTest: false, funcTest: false, paired: false, pureNL: false, langAgn: false, cov: false },
-	{ name: "SecCodePLT", secTest: "partial", funcTest: "partial", paired: "partial", pureNL: false, langAgn: false, cov: false },
-	{ name: "CWEval", secTest: true, funcTest: true, paired: true, pureNL: false, langAgn: false, cov: false },
-	{ name: "SecRepoBench", secTest: true, funcTest: true, paired: true, pureNL: false, langAgn: false, cov: false },
-	{ name: "SecureAgentBench", secTest: "partial", funcTest: true, paired: true, pureNL: false, langAgn: false, cov: false },
-	{ name: "SUSVIBES", secTest: true, funcTest: true, paired: true, pureNL: false, langAgn: false, cov: false },
-	{ name: "BaxBench", secTest: true, funcTest: true, paired: true, pureNL: false, langAgn: false, cov: false },
-	{ name: "DualGauge-Bench", secTest: true, funcTest: true, paired: true, pureNL: true, langAgn: true, cov: true },
+	{ name: "Pearce et al.", url: "https://arxiv.org/abs/2108.09293", secTest: false, funcTest: false, paired: false, pureNL: false, langAgn: false, cov: false },
+	{ name: "SecurityEval", url: "https://github.com/s2e-lab/SecurityEval", secTest: false, funcTest: false, paired: false, pureNL: false, langAgn: false, cov: false },
+	{ name: "CodeLMSec", url: "https://arxiv.org/abs/2302.04012", secTest: false, funcTest: false, paired: false, pureNL: false, langAgn: false, cov: false },
+	{ name: "SecuCoGen", url: "https://arxiv.org/abs/2310.16263", secTest: false, funcTest: false, paired: false, pureNL: "partial", langAgn: false, cov: false },
+	{ name: "SafeGenBench", url: "https://arxiv.org/abs/2506.05692", secTest: false, funcTest: false, paired: false, pureNL: true, langAgn: false, cov: false },
+	{ name: "CodeGuard+", url: "https://arxiv.org/abs/2405.00218", secTest: false, funcTest: true, paired: false, pureNL: false, langAgn: false, cov: false },
+	{ name: "LiveBench", url: "https://livebench.ai", secTest: false, funcTest: false, paired: false, pureNL: false, langAgn: false, cov: false },
+	{ name: "SecCodePLT", url: "https://arxiv.org/abs/2410.11096", secTest: "partial", funcTest: "partial", paired: "partial", pureNL: false, langAgn: false, cov: false },
+	{ name: "CWEval", url: null, secTest: true, funcTest: true, paired: true, pureNL: false, langAgn: false, cov: false },
+	{ name: "SecRepoBench", url: null, secTest: true, funcTest: true, paired: true, pureNL: false, langAgn: false, cov: false },
+	{ name: "SecureAgentBench", url: "https://arxiv.org/abs/2509.22097", secTest: "partial", funcTest: true, paired: true, pureNL: false, langAgn: false, cov: false },
+	{ name: "SUSVIBES", url: "https://arxiv.org/abs/2512.03262", secTest: true, funcTest: true, paired: true, pureNL: false, langAgn: false, cov: false },
+	{ name: "BaxBench", url: "https://arxiv.org/abs/2502.11844", secTest: true, funcTest: true, paired: true, pureNL: false, langAgn: false, cov: false },
+	{ name: "DualGauge-Bench", url: "https://anonymous.4open.science/r/DualGauge_EMNLP26-07B3", secTest: true, funcTest: true, paired: true, pureNL: true, langAgn: true, cov: true },
 ];
 
 const cols = [
-	{ key: "secTest" as const, label: "Sec Test" },
-	{ key: "funcTest" as const, label: "Func Test" },
-	{ key: "paired" as const, label: "Paired" },
-	{ key: "pureNL" as const, label: "Pure NL" },
-	{ key: "langAgn" as const, label: "Lang-Agn." },
-	{ key: "cov" as const, label: "Coverage" },
+	{ key: "secTest" as const, label: "Security Tests", short: "SecTest" },
+	{ key: "funcTest" as const, label: "Functional Tests", short: "FuncTest" },
+	{ key: "paired" as const, label: "Paired Tasks", short: "Paired" },
+	{ key: "pureNL" as const, label: "Pure NL Spec.", short: "Pure NL" },
+	{ key: "langAgn" as const, label: "Language-Agnostic", short: "Lang.-agn." },
+	{ key: "cov" as const, label: "Coverage-Enforced", short: "Cov." },
 ];
 
 function renderCell(val: boolean | string) {
 	if (val === true)
-		return <span style={{ color: "#34d399" }}>&#10003;</span>;
+		return <span className="text-base" style={{ color: "#34d399" }}>&#10003;</span>;
 	if (val === "partial")
-		return <span style={{ color: "#fbbf24" }}>&#9679;</span>;
-	return <span style={{ color: "var(--color-text-secondary)", opacity: 0.3 }}>&#10005;</span>;
+		return <span className="text-base" style={{ color: "#fbbf24" }}>&#9679;</span>;
+	return <span className="text-base font-bold" style={{ color: "#f87171" }}>&#10005;</span>;
 }
 
 const ComparisonSection: React.FC = () => {
@@ -82,13 +82,15 @@ const ComparisonSection: React.FC = () => {
 									{cols.map((c) => (
 										<th
 											key={c.key}
-											className="px-3 py-3 text-center text-xs font-semibold uppercase tracking-wider"
+											className="px-3 py-3 text-center text-xs font-semibold tracking-wider"
 											style={{
 												color: "var(--color-text-secondary)",
 												backgroundColor: "var(--color-bg-secondary)",
+												minWidth: "80px",
 											}}
 										>
-											{c.label}
+											<div>{c.label}</div>
+											<div className="mt-0.5 font-normal opacity-60">({c.short})</div>
 										</th>
 									))}
 								</tr>
@@ -110,17 +112,34 @@ const ComparisonSection: React.FC = () => {
 											}}
 										>
 											<td className="px-4 py-2.5">
-												<span
-													className="text-sm"
-													style={{
-														color: isDualGauge
-															? "var(--color-accent)"
-															: "var(--color-text-primary)",
-														fontWeight: isDualGauge ? 600 : 400,
-													}}
-												>
-													{b.name}
-												</span>
+												{b.url ? (
+													<a
+														href={b.url}
+														target="_blank"
+														rel="noopener noreferrer"
+														className="text-sm hover:underline"
+														style={{
+															color: isDualGauge
+																? "var(--color-accent)"
+																: "var(--color-text-primary)",
+															fontWeight: isDualGauge ? 600 : 400,
+														}}
+													>
+														{b.name}
+													</a>
+												) : (
+													<span
+														className="text-sm"
+														style={{
+															color: isDualGauge
+																? "var(--color-accent)"
+																: "var(--color-text-primary)",
+															fontWeight: isDualGauge ? 600 : 400,
+														}}
+													>
+														{b.name}
+													</span>
+												)}
 											</td>
 											{cols.map((c) => (
 												<td key={c.key} className="px-3 py-2.5 text-center text-sm">
@@ -135,10 +154,17 @@ const ComparisonSection: React.FC = () => {
 					</div>
 				</div>
 				<p
-					className="mt-3 text-xs"
-					style={{ color: "var(--color-text-secondary)", opacity: 0.6 }}
+					className="mt-3 max-w-3xl text-xs leading-relaxed"
+					style={{ color: "var(--color-text-secondary)", opacity: 0.7 }}
 				>
-					Adapted from Table 1 of the paper. &#10003; = full support, &#9679; = partial, &#10005; = not supported.
+					Adapted from Table 1 of the paper.{" "}
+					<strong>SecTest</strong> = dynamic security tests;{" "}
+					<strong>FuncTest</strong> = functional tests;{" "}
+					<strong>Paired</strong> = tests paired for the same coding task;{" "}
+					<strong>Pure NL Spec.</strong> = task purely specified by natural language;{" "}
+					<strong>Lang.-agn.</strong> = programming-language-agnostic design;{" "}
+					<strong>Cov.</strong> = coverage-enforced construction.{" "}
+					&#10003; full support &nbsp;&#9679; partial &nbsp;<span style={{ color: "#f87171" }}>&#10005;</span> not supported.
 				</p>
 			</AnimatedSection>
 		</section>
