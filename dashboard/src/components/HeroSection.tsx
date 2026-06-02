@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import AnimatedSection from "./AnimatedSection";
 import Logo from "./Logo";
 
@@ -54,7 +55,7 @@ const HeroSection: React.FC = () => {
 							</svg>
 							Code
 						</a>
-						<a
+						<Link
 							href="/leaderboard"
 							className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200"
 							style={{
@@ -69,7 +70,7 @@ const HeroSection: React.FC = () => {
 								<line x1="6" y1="20" x2="6" y2="14" />
 							</svg>
 							Leaderboard
-						</a>
+						</Link>
 					</div>
 				</div>
 			</AnimatedSection>

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import AnimatedSection from "./AnimatedSection";
 import { dualGaugeModels } from "../data/models";
 
@@ -124,7 +125,7 @@ const LeaderboardPreview: React.FC = () => {
 
 			<AnimatedSection delay={0.15}>
 				<div className="mt-6 text-center">
-					<a
+					<Link
 						href="/leaderboard"
 						className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200"
 						style={{
@@ -137,7 +138,7 @@ const LeaderboardPreview: React.FC = () => {
 						<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
 							<path d="M5 12h14M12 5l7 7-7 7" />
 						</svg>
-					</a>
+					</Link>
 				</div>
 			</AnimatedSection>
 		</section>

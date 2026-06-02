@@ -1,9 +1,12 @@
 import type { NextConfig } from "next";
 
+const isProd = process.env.NODE_ENV === "production";
+
 const nextConfig: NextConfig = {
 	output: "export",
+	trailingSlash: true,
 	distDir: "dist",
-	basePath: process.env.GITHUB_PAGES === "true" ? "/DualGauge" : "",
+	basePath: isProd ? "/DualGauge" : "",
 	images: { unoptimized: true },
 	turbopack: {
 		rules: {

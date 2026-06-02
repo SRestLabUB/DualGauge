@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import Logo from "./Logo";
 
 const Footer: React.FC = () => {
@@ -36,9 +37,9 @@ const Footer: React.FC = () => {
 						Code
 					</a>
 					<span style={{ color: "var(--color-border)" }}>|</span>
-					<a href="/leaderboard" style={{ color: "var(--color-text-secondary)" }}>
+					<Link href="/leaderboard" style={{ color: "var(--color-text-secondary)" }}>
 						Leaderboard
-					</a>
+					</Link>
 				</div>
 			</div>
 		</footer>
