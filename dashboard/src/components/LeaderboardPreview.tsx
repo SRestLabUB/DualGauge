@@ -46,15 +46,31 @@ const LeaderboardPreview: React.FC = () => {
 					<table className="w-full">
 						<thead>
 							<tr style={{ borderBottom: "1px solid var(--color-border)" }}>
-								{["#", "Model", "pass@1", "secure@1", "secure-pass@1"].map((h) => (
+								{[
+									{ label: "#", tooltip: null },
+									{ label: "Model", tooltip: null },
+									{ label: "pass@1", tooltip: "Fraction of problems where the single sample passes all functional tests. Measures functional correctness." },
+									{ label: "secure@1", tooltip: "Fraction of problems where the single sample passes all security tests. Measures security correctness." },
+									{ label: "secure-pass@1", tooltip: "Fraction passing both functional and security tests simultaneously. The primary joint metric." },
+								].map((h) => (
 									<th
-										key={h}
+										key={h.label}
 										className={`px-4 py-3 text-xs font-semibold uppercase tracking-wider ${
-											h !== "#" && h !== "Model" ? "font-mono-data text-right" : "text-left"
+											h.label !== "#" && h.label !== "Model" ? "font-mono-data text-right" : "text-left"
 										}`}
 										style={{ color: "var(--color-text-secondary)" }}
 									>
-										{h}
+										{h.tooltip ? (
+											<div className="group relative inline-flex items-center">
+												<span className="border-b border-dashed cursor-help" style={{ borderColor: "var(--color-text-secondary)" }}>
+													{h.label}
+												</span>
+												<div className="pointer-events-none absolute bottom-full right-0 z-10 mb-2 hidden w-52 rounded-lg p-2.5 text-left text-xs font-normal normal-case leading-relaxed tracking-normal shadow-lg group-hover:block"
+													style={{ backgroundColor: "var(--color-bg-secondary)", border: "1px solid var(--color-border)", color: "var(--color-text-secondary)" }}>
+													{h.tooltip}
+												</div>
+											</div>
+										) : h.label}
 									</th>
 								))}
 							</tr>
@@ -99,14 +115,7 @@ const LeaderboardPreview: React.FC = () => {
 			</AnimatedSection>
 
 			<AnimatedSection delay={0.15}>
-				<p className="mt-4 text-xs leading-relaxed" style={{ color: "var(--color-text-secondary)", opacity: 0.8 }}>
-					<strong style={{ color: "var(--color-text-primary)" }}>pass@1</strong> — fraction of problems where the single sample passes all functional tests (functional correctness). &nbsp;
-					<strong style={{ color: "var(--color-text-primary)" }}>secure@1</strong> — same for all security tests (security correctness). &nbsp;
-					<strong style={{ color: "var(--color-text-primary)" }}>secure-pass@1</strong> — fraction passing both functional and security tests simultaneously; the primary joint metric.
-				</p>
-			</AnimatedSection>
-
-			<AnimatedSection delay={0.2}>
+				<AnimatedSection delay={0.2}>
 			<div className="mt-6 text-center">
 					<a
 						href="/leaderboard"

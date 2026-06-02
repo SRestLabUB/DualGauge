@@ -16,12 +16,12 @@ const LANGUAGES: { key: Language; label: string }[] = [
 	{ key: "javascript", label: "JavaScript" },
 ];
 
-const METRIC_COLS: { key: keyof LanguageResult; label: string }[] = [
-	{ key: "pass@1", label: "pass@1" },
-	{ key: "secure@1", label: "secure@1" },
-	{ key: "secure-pass@1", label: "secure-pass@1" },
-	{ key: "PR", label: "PR" },
-	{ key: "SPR", label: "SPR" },
+const METRIC_COLS: { key: keyof LanguageResult; label: string; tooltip: string }[] = [
+	{ key: "pass@1", label: "pass@1", tooltip: "Fraction of problems where the single generated sample passes all functional tests, averaged over all benchmark problems. Measures functional correctness." },
+	{ key: "secure@1", label: "secure@1", tooltip: "Fraction of problems where the single generated sample passes all security tests, averaged over all benchmark problems. Measures security correctness." },
+	{ key: "secure-pass@1", label: "secure-pass@1", tooltip: "Fraction of problems where the single sample passes both all functional and all security tests simultaneously. The primary joint metric." },
+	{ key: "PR", label: "PR", tooltip: "Pass Rate = Pfunc / Tfunc. Proportion of individual functional test cases passed across all problems — test-case-level, unlike pass@1 which is problem-level." },
+	{ key: "SPR", label: "SPR", tooltip: "Secure Pass Rate = Psec / Tsec. Proportion of individual security test cases passed across all problems — test-case-level analogue of secure@1." },
 ];
 
 function scoreColor(v: number): string {
@@ -223,7 +223,16 @@ const LeaderboardPage: React.FC = () => {
 											style={{ color: sortField === col.key ? "var(--color-accent)" : "var(--color-text-secondary)", backgroundColor: "var(--color-bg-secondary)" }}
 											onClick={() => handleSort(col.key)}
 										>
-											{col.label}{renderSortArrow(col.key)}
+											<div className="group relative inline-flex items-center gap-0.5">
+												<span className="border-b border-dashed" style={{ borderColor: "var(--color-text-secondary)" }}>
+													{col.label}
+												</span>
+												{renderSortArrow(col.key)}
+												<div className="pointer-events-none absolute bottom-full right-0 z-10 mb-2 hidden w-56 rounded-lg p-2.5 text-left text-xs font-normal normal-case leading-relaxed tracking-normal shadow-lg group-hover:block"
+													style={{ backgroundColor: "var(--color-bg-secondary)", border: "1px solid var(--color-border)", color: "var(--color-text-secondary)" }}>
+													{col.tooltip}
+												</div>
+											</div>
 										</th>
 									))}
 									<th
@@ -375,37 +384,9 @@ const LeaderboardPage: React.FC = () => {
 					</span>
 				</div>
 
-				{/* Metric legend */}
-				<div
-					className="mt-6 rounded-xl p-4"
-					style={{ backgroundColor: "var(--color-bg-secondary)", border: "1px solid var(--color-border)" }}
-				>
-					<p className="mb-3 text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--color-text-secondary)" }}>
-						Metric Definitions
-					</p>
-					<div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-						{[
-							{ name: "pass@1", full: "Functional Correctness", desc: "Fraction of problems where the single generated sample passes all functional tests, averaged over all benchmark problems." },
-							{ name: "secure@1", full: "Security Correctness", desc: "Fraction of problems where the single generated sample passes all security tests, averaged over all benchmark problems." },
-							{ name: "secure-pass@1", full: "Joint Security-Functionality", desc: "Fraction of problems where the single sample passes both all functional and all security tests simultaneously. The primary metric." },
-							{ name: "PR", full: "Pass Rate (Pfunc / Tfunc)", desc: "Proportion of individual functional test cases passed across all problems — a test-case-level metric, unlike pass@1 which is problem-level." },
-							{ name: "SPR", full: "Secure Pass Rate (Psec / Tsec)", desc: "Proportion of individual security test cases passed across all problems — test-case-level analogue of secure@1." },
-						].map((m) => (
-							<div key={m.name} className="flex gap-2">
-								<code
-									className="mt-0.5 shrink-0 rounded px-1.5 py-0.5 text-xs font-bold"
-									style={{ backgroundColor: "var(--color-accent-dim)", color: "var(--color-accent)" }}
-								>
-									{m.name}
-								</code>
-								<p className="text-xs leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-									<span className="font-semibold" style={{ color: "var(--color-text-primary)" }}>{m.full} — </span>
-									{m.desc}
-								</p>
-							</div>
-						))}
-					</div>
-				</div>
+				<p className="mt-3 text-xs" style={{ color: "var(--color-text-secondary)", opacity: 0.6 }}>
+					Hover over any metric column header for its definition.
+				</p>
 			</main>
 			<Footer />
 
