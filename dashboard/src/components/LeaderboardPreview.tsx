@@ -99,7 +99,15 @@ const LeaderboardPreview: React.FC = () => {
 			</AnimatedSection>
 
 			<AnimatedSection delay={0.15}>
-				<div className="mt-6 text-center">
+				<p className="mt-4 text-xs leading-relaxed" style={{ color: "var(--color-text-secondary)", opacity: 0.8 }}>
+					<strong style={{ color: "var(--color-text-primary)" }}>pass@1</strong> — % of tasks where the single sample passes all functional tests. &nbsp;
+					<strong style={{ color: "var(--color-text-primary)" }}>secure@1</strong> — % passing all security tests. &nbsp;
+					<strong style={{ color: "var(--color-text-primary)" }}>secure-pass@1</strong> — % passing both simultaneously (the primary joint metric).
+				</p>
+			</AnimatedSection>
+
+			<AnimatedSection delay={0.2}>
+			<div className="mt-6 text-center">
 					<a
 						href="/leaderboard"
 						className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200"

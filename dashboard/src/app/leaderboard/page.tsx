@@ -374,6 +374,38 @@ const LeaderboardPage: React.FC = () => {
 						Sorted by {sortField} ({sortDir})
 					</span>
 				</div>
+
+				{/* Metric legend */}
+				<div
+					className="mt-6 rounded-xl p-4"
+					style={{ backgroundColor: "var(--color-bg-secondary)", border: "1px solid var(--color-border)" }}
+				>
+					<p className="mb-3 text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--color-text-secondary)" }}>
+						Metric Definitions
+					</p>
+					<div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+						{[
+							{ name: "pass@1", full: "Pass Rate @ 1", desc: "% of tasks where the model's single sample passes all functional tests. Measures functional correctness." },
+							{ name: "secure@1", full: "Secure Rate @ 1", desc: "% of tasks where the model's single sample passes all security tests. Measures security correctness." },
+							{ name: "secure-pass@1", full: "Joint Rate @ 1", desc: "% of tasks where the sample passes both functional and security tests simultaneously. The primary joint metric." },
+							{ name: "PR", full: "Pass Rate", desc: "Proportion of individual functional test cases passed across the full benchmark (Pfunc / Tfunc)." },
+							{ name: "SPR", full: "Secure Pass Rate", desc: "Proportion of individual security test cases passed across the full benchmark (Psec / Tsec)." },
+						].map((m) => (
+							<div key={m.name} className="flex gap-2">
+								<code
+									className="mt-0.5 shrink-0 rounded px-1.5 py-0.5 text-xs font-bold"
+									style={{ backgroundColor: "var(--color-accent-dim)", color: "var(--color-accent)" }}
+								>
+									{m.name}
+								</code>
+								<p className="text-xs leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
+									<span className="font-semibold" style={{ color: "var(--color-text-primary)" }}>{m.full} — </span>
+									{m.desc}
+								</p>
+							</div>
+						))}
+					</div>
+				</div>
 			</main>
 			<Footer />
 
