@@ -42,7 +42,7 @@ function scoreBg(v: number): string {
 const LeaderboardPage: React.FC = () => {
 	const [language, setLanguage] = useState<Language>("python");
 	const [search, setSearch] = useState("");
-	const [showAgents, setShowAgents] = useState(true);
+	const [modelFilter, setModelFilter] = useState<"all" | "llm" | "agent">("all");
 	const [showOpenOnly, setShowOpenOnly] = useState(false);
 	const [sortField, setSortField] = useState<SortField>("secure-pass@1");
 	const [sortDir, setSortDir] = useState<SortDir>("desc");
@@ -65,7 +65,8 @@ const LeaderboardPage: React.FC = () => {
 
 	const data = useMemo(() => {
 		const filtered = allModels.filter((m) => {
-			if (!showAgents && m.isAgent) return false;
+			if (modelFilter === "llm" && m.isAgent) return false;
+			if (modelFilter === "agent" && !m.isAgent) return false;
 			if (showOpenOnly && m.type !== "Open") return false;
 			if (search && !m.model.toLowerCase().includes(search.toLowerCase())) return false;
 			return true;
@@ -91,7 +92,7 @@ const LeaderboardPage: React.FC = () => {
 		});
 
 		return filtered;
-	}, [language, search, showAgents, showOpenOnly, sortField, sortDir]);
+	}, [language, search, modelFilter, showOpenOnly, sortField, sortDir]);
 
 	const renderSortArrow = (field: SortField) => {
 		if (sortField !== field) return null;
@@ -170,19 +171,25 @@ const LeaderboardPage: React.FC = () => {
 						/>
 					</div>
 
-					<div className="flex items-center gap-4">
-						<label className="flex cursor-pointer items-center gap-2">
-							<input
-								type="checkbox"
-								checked={showAgents}
-								onChange={() => setShowAgents(!showAgents)}
-								className="h-3.5 w-3.5 rounded"
-								style={{ accentColor: "var(--color-accent)" }}
-							/>
-							<span className="text-xs font-medium" style={{ color: "var(--color-text-secondary)" }}>
-								Agents
-							</span>
-						</label>
+					<div className="flex items-center gap-3 flex-wrap">
+						{/* Model type toggle */}
+						<div className="flex rounded-lg overflow-hidden" style={{ border: "1px solid var(--color-border)" }}>
+							{(["all", "llm", "agent"] as const).map((opt) => (
+								<button
+									key={opt}
+									onClick={() => setModelFilter(opt)}
+									className="px-3 py-1.5 text-xs font-medium transition-colors"
+									style={{
+										backgroundColor: modelFilter === opt ? "var(--color-accent-dim)" : "var(--color-bg-secondary)",
+										color: modelFilter === opt ? "var(--color-accent)" : "var(--color-text-secondary)",
+										borderRight: opt !== "agent" ? "1px solid var(--color-border)" : "none",
+									}}
+								>
+									{opt === "all" ? "All" : opt === "llm" ? "LLMs Only" : "Agents Only"}
+								</button>
+							))}
+						</div>
+
 						<label className="flex cursor-pointer items-center gap-2">
 							<input
 								type="checkbox"
