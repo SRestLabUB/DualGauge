@@ -9,6 +9,7 @@ import { Language } from "../../types/models";
 
 type SortField = keyof LanguageResult | "model" | "organization" | "type";
 type SortDir = "asc" | "desc";
+type TooltipState = { text: string; x: number; y: number } | null;
 
 const LANGUAGES: { key: Language; label: string }[] = [
 	{ key: "python", label: "Python" },
@@ -46,6 +47,12 @@ const LeaderboardPage: React.FC = () => {
 	const [sortField, setSortField] = useState<SortField>("secure-pass@1");
 	const [sortDir, setSortDir] = useState<SortDir>("desc");
 	const [selectedModel, setSelectedModel] = useState<DualGaugeModel | null>(null);
+	const [tooltip, setTooltip] = useState<TooltipState>(null);
+
+	const showTooltip = (e: React.MouseEvent, text: string) => {
+		const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+		setTooltip({ text, x: rect.left + rect.width / 2, y: rect.top });
+	};
 
 	const handleSort = (field: SortField) => {
 		if (sortField === field) {
@@ -223,16 +230,14 @@ const LeaderboardPage: React.FC = () => {
 											style={{ color: sortField === col.key ? "var(--color-accent)" : "var(--color-text-secondary)", backgroundColor: "var(--color-bg-secondary)" }}
 											onClick={() => handleSort(col.key)}
 										>
-											<div className="group relative inline-flex items-center gap-0.5">
-												<span className="border-b border-dashed" style={{ borderColor: "var(--color-text-secondary)" }}>
-													{col.label}
-												</span>
-												{renderSortArrow(col.key)}
-												<div className="pointer-events-none absolute bottom-full right-0 z-10 mb-2 hidden w-56 rounded-lg p-2.5 text-left text-xs font-normal normal-case leading-relaxed tracking-normal shadow-lg group-hover:block"
-													style={{ backgroundColor: "var(--color-bg-secondary)", border: "1px solid var(--color-border)", color: "var(--color-text-secondary)" }}>
-													{col.tooltip}
-												</div>
-											</div>
+											<span
+												className="inline-flex items-center gap-0.5 border-b border-dashed cursor-help"
+												style={{ borderColor: "currentColor" }}
+												onMouseEnter={(e) => showTooltip(e, col.tooltip)}
+												onMouseLeave={() => setTooltip(null)}
+											>
+												{col.label}{renderSortArrow(col.key)}
+											</span>
 										</th>
 									))}
 									<th
@@ -396,6 +401,25 @@ const LeaderboardPage: React.FC = () => {
 					model={selectedModel}
 					onClose={() => setSelectedModel(null)}
 				/>
+			)}
+
+			{/* Metric tooltip */}
+			{tooltip && (
+				<div
+					className="pointer-events-none w-56 rounded-lg p-2.5 text-xs leading-relaxed shadow-xl"
+					style={{
+						position: "fixed",
+						left: tooltip.x,
+						top: tooltip.y - 10,
+						transform: "translate(-50%, -100%)",
+						zIndex: 9999,
+						backgroundColor: "var(--color-bg-secondary)",
+						border: "1px solid var(--color-border)",
+						color: "var(--color-text-secondary)",
+					}}
+				>
+					{tooltip.text}
+				</div>
 			)}
 		</>
 	);

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import AnimatedSection from "./AnimatedSection";
 import { dualGaugeModels } from "../data/models";
 
@@ -11,12 +11,21 @@ function scoreColor(v: number): string {
 	return "var(--color-text-secondary)";
 }
 
+type TooltipState = { text: string; x: number; y: number } | null;
+
 const LeaderboardPreview: React.FC = () => {
+	const [tooltip, setTooltip] = useState<TooltipState>(null);
 	const topModels = [...dualGaugeModels]
 		.sort((a, b) => b.python["secure-pass@1"] - a.python["secure-pass@1"])
 		.slice(0, 5);
 
+	const showTooltip = (e: React.MouseEvent, text: string) => {
+		const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+		setTooltip({ text, x: rect.left + rect.width / 2, y: rect.top });
+	};
+
 	return (
+		<>
 		<section id="leaderboard" className="py-24">
 			<AnimatedSection>
 				<p
@@ -61,15 +70,14 @@ const LeaderboardPreview: React.FC = () => {
 										style={{ color: "var(--color-text-secondary)" }}
 									>
 										{h.tooltip ? (
-											<div className="group relative inline-flex items-center">
-												<span className="border-b border-dashed cursor-help" style={{ borderColor: "var(--color-text-secondary)" }}>
-													{h.label}
-												</span>
-												<div className="pointer-events-none absolute bottom-full right-0 z-10 mb-2 hidden w-52 rounded-lg p-2.5 text-left text-xs font-normal normal-case leading-relaxed tracking-normal shadow-lg group-hover:block"
-													style={{ backgroundColor: "var(--color-bg-secondary)", border: "1px solid var(--color-border)", color: "var(--color-text-secondary)" }}>
-													{h.tooltip}
-												</div>
-											</div>
+											<span
+												className="border-b border-dashed cursor-help"
+												style={{ borderColor: "currentColor" }}
+												onMouseEnter={(e) => showTooltip(e, h.tooltip!)}
+												onMouseLeave={() => setTooltip(null)}
+											>
+												{h.label}
+											</span>
 										) : h.label}
 									</th>
 								))}
@@ -133,6 +141,25 @@ const LeaderboardPreview: React.FC = () => {
 				</div>
 			</AnimatedSection>
 		</section>
+
+		{tooltip && (
+			<div
+				className="pointer-events-none w-56 rounded-lg p-2.5 text-xs leading-relaxed shadow-xl"
+				style={{
+					position: "fixed",
+					left: tooltip.x,
+					top: tooltip.y - 10,
+					transform: "translate(-50%, -100%)",
+					zIndex: 9999,
+					backgroundColor: "var(--color-bg-secondary)",
+					border: "1px solid var(--color-border)",
+					color: "var(--color-text-secondary)",
+				}}
+			>
+				{tooltip.text}
+			</div>
+		)}
+		</>
 	);
 };
 
