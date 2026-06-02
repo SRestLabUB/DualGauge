@@ -117,11 +117,11 @@ const ComparisonSection: React.FC = () => {
 														href={b.url}
 														target="_blank"
 														rel="noopener noreferrer"
-														className="text-sm hover:underline"
+														className="text-sm underline underline-offset-2 hover:opacity-80 transition-opacity"
 														style={{
 															color: isDualGauge
 																? "var(--color-accent)"
-																: "var(--color-text-primary)",
+																: "#60a5fa",
 															fontWeight: isDualGauge ? 600 : 400,
 														}}
 													>
