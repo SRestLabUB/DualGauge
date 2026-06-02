@@ -6,6 +6,7 @@
 		"dev": "next dev",
 		"dev:turbo": "next dev --turbopack",
 		"build": "next build",
+		"postbuild": "rm -rf ../dist && cp -r dist ../dist",
 		"build:static": "next build",
 		"start": "next start",
 		"lint": "next lint"
