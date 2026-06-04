@@ -1,0 +1,167 @@
+"use client";
+
+import React, { useState } from "react";
+import Link from "next/link";
+import AnimatedSection from "./AnimatedSection";
+import { dualGaugeModels } from "../data/models";
+
+function scoreColor(v: number): string {
+	if (v >= 40) return "#34d399";
+	if (v >= 20) return "#fbbf24";
+	if (v > 0) return "#f87171";
+	return "var(--color-text-secondary)";
+}
+
+type TooltipState = { text: string; x: number; y: number } | null;
+
+const LeaderboardPreview: React.FC = () => {
+	const [tooltip, setTooltip] = useState<TooltipState>(null);
+	const topModels = [...dualGaugeModels]
+		.sort((a, b) => b.python["secure-pass@1"] - a.python["secure-pass@1"])
+		.slice(0, 5);
+
+	const showTooltip = (e: React.MouseEvent, text: string) => {
+		const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+		setTooltip({ text, x: rect.left + rect.width / 2, y: rect.top });
+	};
+
+	return (
+		<>
+		<section id="leaderboard" className="py-24">
+			<AnimatedSection>
+				<p
+					className="mb-2 text-xs font-semibold uppercase tracking-widest"
+					style={{ color: "var(--color-accent)" }}
+				>
+					Leaderboard
+				</p>
+				<h2
+					className="mb-6 text-2xl font-bold"
+					style={{ color: "var(--color-text-primary)" }}
+				>
+					Top Models (Python, k=1)
+				</h2>
+				<p
+					className="mb-8 max-w-2xl leading-relaxed"
+					style={{ color: "var(--color-text-secondary)" }}
+				>
+					Even the strongest model remains below 15% secure-pass@1 in every
+					language. The full leaderboard includes 10 LLMs and 3 agentic
+					coding systems across Python, C++, and JavaScript.
+				</p>
+			</AnimatedSection>
+
+			<AnimatedSection delay={0.1}>
+				<div className="card-dark overflow-hidden rounded-xl">
+					<table className="w-full">
+						<thead>
+							<tr style={{ borderBottom: "1px solid var(--color-border)" }}>
+								{[
+									{ label: "#", tooltip: null },
+									{ label: "Model", tooltip: null },
+									{ label: "pass@1", tooltip: "Fraction of problems where the single sample passes all functional tests. Measures functional correctness." },
+									{ label: "secure@1", tooltip: "Fraction of problems where the single sample passes all security tests. Measures security correctness." },
+									{ label: "secure-pass@1", tooltip: "Fraction passing both functional and security tests simultaneously. The primary joint metric." },
+								].map((h) => (
+									<th
+										key={h.label}
+										className={`px-4 py-3 text-xs font-semibold uppercase tracking-wider ${
+											h.label !== "#" && h.label !== "Model" ? "font-mono-data text-right" : "text-left"
+										}`}
+										style={{ color: "var(--color-text-secondary)" }}
+									>
+										{h.tooltip ? (
+											<span
+												className="border-b border-dashed cursor-help"
+												style={{ borderColor: "currentColor" }}
+												onMouseEnter={(e) => showTooltip(e, h.tooltip!)}
+												onMouseLeave={() => setTooltip(null)}
+											>
+												{h.label}
+											</span>
+										) : h.label}
+									</th>
+								))}
+							</tr>
+						</thead>
+						<tbody>
+							{topModels.map((m, i) => (
+								<tr
+									key={m.id}
+									style={{
+										borderBottom:
+											i < topModels.length - 1
+												? "1px solid var(--color-border)"
+												: "none",
+									}}
+								>
+									<td className="px-4 py-3 font-mono-data text-sm font-bold" style={{ color: "var(--color-text-secondary)" }}>
+										{i + 1}
+									</td>
+									<td className="px-4 py-3">
+										<span className="text-sm font-medium" style={{ color: "var(--color-text-primary)" }}>
+											{m.model}
+										</span>
+										<span className="ml-2 text-xs" style={{ color: "var(--color-text-secondary)" }}>
+											{m.organization}
+										</span>
+									</td>
+									{(["pass@1", "secure@1", "secure-pass@1"] as const).map((metric) => (
+										<td key={metric} className="px-4 py-3 text-right">
+											<span
+												className="font-mono-data text-sm font-semibold"
+												style={{ color: scoreColor(m.python[metric]) }}
+											>
+												{m.python[metric]}%
+											</span>
+										</td>
+									))}
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
+			</AnimatedSection>
+
+			<AnimatedSection delay={0.15}>
+				<div className="mt-6 text-center">
+					<Link
+						href="/leaderboard"
+						className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200"
+						style={{
+							backgroundColor: "var(--color-accent-dim)",
+							color: "var(--color-accent)",
+							border: "1px solid var(--color-border-accent)",
+						}}
+					>
+						View Full Leaderboard
+						<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+							<path d="M5 12h14M12 5l7 7-7 7" />
+						</svg>
+					</Link>
+				</div>
+			</AnimatedSection>
+		</section>
+
+		{tooltip && (
+			<div
+				className="pointer-events-none w-56 rounded-lg p-2.5 text-xs leading-relaxed shadow-xl"
+				style={{
+					position: "fixed",
+					left: tooltip.x,
+					top: tooltip.y - 10,
+					transform: "translate(-50%, -100%)",
+					zIndex: 9999,
+					backgroundColor: "var(--color-bg-secondary)",
+					border: "1px solid var(--color-border)",
+					color: "var(--color-text-secondary)",
+				}}
+			>
+				{tooltip.text}
+			</div>
+		)}
+		</>
+	);
+};
+
+export default LeaderboardPreview;
