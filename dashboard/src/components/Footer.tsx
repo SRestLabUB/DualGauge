@@ -29,6 +29,15 @@ const Footer: React.FC = () => {
 				</p>
 				<div className="flex items-center justify-center gap-4 text-xs">
 					<a
+						href="https://arxiv.org/pdf/2511.20709"
+						target="_blank"
+						rel="noopener noreferrer"
+						style={{ color: "var(--color-text-secondary)" }}
+					>
+						Paper
+					</a>
+					<span style={{ color: "var(--color-border)" }}>|</span>
+					<a
 						href="https://github.com/SRestLabUB/DualGauge"
 						target="_blank"
 						rel="noopener noreferrer"
