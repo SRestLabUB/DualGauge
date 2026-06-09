@@ -17,7 +17,7 @@ const benchmarks = [
 	{ name: "SecureAgentBench", url: "https://arxiv.org/abs/2509.22097", secTest: "partial", funcTest: true, paired: true, pureNL: false, langAgn: false, cov: false },
 	{ name: "SUSVIBES", url: "https://arxiv.org/abs/2512.03262", secTest: true, funcTest: true, paired: true, pureNL: false, langAgn: false, cov: false },
 	{ name: "BaxBench", url: "https://arxiv.org/abs/2502.11844", secTest: true, funcTest: true, paired: true, pureNL: false, langAgn: false, cov: false },
-	{ name: "DualGauge-Bench", url: "https://anonymous.4open.science/r/DualGauge_EMNLP26-07B3", secTest: true, funcTest: true, paired: true, pureNL: true, langAgn: true, cov: true },
+	{ name: "DualGauge-Bench", url: "https://github.com/SRestLabUB/DualGauge", secTest: true, funcTest: true, paired: true, pureNL: true, langAgn: true, cov: true },
 ];
 
 const cols = [

@@ -29,7 +29,7 @@ const Footer: React.FC = () => {
 				</p>
 				<div className="flex items-center justify-center gap-4 text-xs">
 					<a
-						href="https://anonymous.4open.science/r/DualGauge_EMNLP26-07B3"
+						href="https://github.com/SRestLabUB/DualGauge"
 						target="_blank"
 						rel="noopener noreferrer"
 						style={{ color: "var(--color-text-secondary)" }}

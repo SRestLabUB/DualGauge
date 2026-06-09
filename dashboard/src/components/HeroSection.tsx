@@ -40,7 +40,7 @@ const HeroSection: React.FC = () => {
 
 					<div className="mt-10 flex flex-wrap items-center justify-center gap-3">
 						<a
-							href="https://anonymous.4open.science/r/DualGauge_EMNLP26-07B3"
+							href="https://github.com/SRestLabUB/DualGauge"
 							target="_blank"
 							rel="noopener noreferrer"
 							className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200"
