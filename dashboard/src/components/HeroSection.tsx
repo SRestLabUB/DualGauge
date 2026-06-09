@@ -75,6 +75,41 @@ const HeroSection: React.FC = () => {
 							</svg>
 							Code
 						</a>
+						<a
+							href="https://doi.org/10.5281/zenodo.20480617"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200"
+							style={{
+								backgroundColor: "var(--color-accent-dim)",
+								color: "var(--color-accent)",
+								border: "1px solid var(--color-border-accent)",
+							}}
+						>
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+								<ellipse cx="12" cy="5" rx="9" ry="3" />
+								<path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+								<path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+							</svg>
+							Data
+						</a>
+						<a
+							href="https://github.com/SRestLabUB/DualGauge/issues"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200"
+							style={{
+								backgroundColor: "transparent",
+								color: "var(--color-text-secondary)",
+								border: "1px solid var(--color-border)",
+							}}
+						>
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+								<circle cx="12" cy="12" r="10" />
+								<path d="M8 15h8M9 9h.01M15 9h.01" />
+							</svg>
+							Issues / Suggestions
+						</a>
 						<Link
 							href="/leaderboard"
 							className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200"

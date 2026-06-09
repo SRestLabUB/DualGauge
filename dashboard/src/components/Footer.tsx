@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
 					generation. 307 tasks across Python, C++, and JavaScript
 					covering 90 CWEs.
 				</p>
-				<div className="flex items-center justify-center gap-4 text-xs">
+				<div className="flex flex-wrap items-center justify-center gap-4 text-xs">
 					<a
 						href="https://arxiv.org/pdf/2511.20709"
 						target="_blank"
@@ -44,6 +44,24 @@ const Footer: React.FC = () => {
 						style={{ color: "var(--color-text-secondary)" }}
 					>
 						Code
+					</a>
+					<span style={{ color: "var(--color-border)" }}>|</span>
+					<a
+						href="https://doi.org/10.5281/zenodo.20480617"
+						target="_blank"
+						rel="noopener noreferrer"
+						style={{ color: "var(--color-text-secondary)" }}
+					>
+						Data
+					</a>
+					<span style={{ color: "var(--color-border)" }}>|</span>
+					<a
+						href="https://github.com/SRestLabUB/DualGauge/issues"
+						target="_blank"
+						rel="noopener noreferrer"
+						style={{ color: "var(--color-text-secondary)" }}
+					>
+						Issues
 					</a>
 					<span style={{ color: "var(--color-border)" }}>|</span>
 					<Link href="/leaderboard" style={{ color: "var(--color-text-secondary)" }}>
