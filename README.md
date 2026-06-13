@@ -1,6 +1,6 @@
 # DualGauge
 
-**Paper**: [arXiv:2511.20709](https://arxiv.org/abs/2511.20709) | **Data**: [Zenodo](https://zenodo.org/records/20480618?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjUwNzNjNzNkLWM4NWItNDhmMS1iZTI1LWNmMTVjMmIzYzRhNCIsImRhdGEiOnt9LCJyYW5kb20iOiJlYjNmYmUyOWQ1YjhjZTJjY2FkNjBkMjAxY2JjMDFmNSJ9.uP39HVE5rYy3DL_XDSiwr9rDZKmmRI7Ht3GpoaNqLhoPHAvcdki_ZjqEgB_lkm6NkMUDzllqVBOVyGvgyqhVaA)
+**Paper**: [arXiv:2511.20709](https://arxiv.org/abs/2511.20709) | **Data**: [Zenodo] (https://doi.org/10.5281/zenodo.20480617) | **Results**: [Dashboard](https://srestlabub.github.io/DualGauge/)
 
 **DualGauge** is the first fully automated framework for jointly evaluating the **functional correctness** and **security** of specification-only LLM code generation. Existing benchmarks measure one or the other — DualGauge measures both simultaneously, revealing that functional correctness substantially overestimates reliable code generation: the strongest model achieves 38.6% pass@1 on Python but only 14.8% secure-pass@1.
 
