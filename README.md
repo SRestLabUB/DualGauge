@@ -101,6 +101,6 @@ python3 DualGauge/Phase4_aggregation_dashboard/calculate_all_metrics.py \
 
 ## Experimental Data
 
-Pre-computed results for all evaluated configurations (10 LLMs × 3 languages, 3 agentic coding systems, and 45+ Python-only factor sweeps) are available on Zenodo (click [here](https://srestlabub.github.io/DualGauge/)):
+Pre-computed results for all evaluated configurations (10 LLMs × 3 languages, 3 agentic coding systems, and 45+ Python-only factor sweeps) are available on Zenodo (click [here](https://doi.org/10.5281/zenodo.20480617)):
 
 See [BenchmarkingExperiments/README.md](BenchmarkingExperiments/README.md) for the directory structure and replication instructions.
